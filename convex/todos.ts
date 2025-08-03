@@ -62,3 +62,16 @@ export const deleteAllTodos = mutation({
 	},
 });
 
+
+export const toggleTodo = mutation({
+	args: { id: v.id('todos') },
+	handler: async (ctx, args) => {
+		const todo = await ctx.db.get(args.id);
+		if (!todo) {
+			throw new Error('Todo not found');
+		}
+		await ctx.db.patch(args.id, {
+			isCompleted: !todo.isCompleted
+		});
+	},
+})
