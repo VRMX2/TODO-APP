@@ -1,34 +1,43 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import { createSettingsStyles } from "@/assets/styles/settings.styles";
+import DangerZone from "@/components/DangerZone";
+import Preferences from "@/components/Preferences";
+import ProgressStats from "@/components/ProgressStats";
+import useTheme from "@/hooks/useTheme";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+
+import { ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SettingsScreen = () => {
+  const { colors } = useTheme();
+
+  const settingsStyles = createSettingsStyles(colors);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Settings</Text>
-      <Text style={styles.description}>Customize your preferences here.</Text>
-    </View>
+    <LinearGradient colors={colors.gradients.background} style={settingsStyles.container}>
+      <SafeAreaView style={settingsStyles.safeArea}>
+        {/* HEADER */}
+        <View style={settingsStyles.header}>
+          <View style={settingsStyles.titleContainer}>
+            <LinearGradient colors={colors.gradients.primary} style={settingsStyles.iconContainer}>
+              <Ionicons name="settings" size={28} color="#ffffff" />
+            </LinearGradient>
+            <Text style={settingsStyles.title}>Settings</Text>
+          </View>
+        </View>
+
+        <ScrollView
+          style={settingsStyles.scrollView}
+          contentContainerStyle={settingsStyles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <ProgressStats />
+          <Preferences />
+          <DangerZone  />
+        </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8fafc", 
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  heading: {
-    fontSize: 26,
-    fontWeight: "700",
-    color: "#0f172a",
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 16,
-    color: "#475569",
-    textAlign: "center",
-  },
-});
-
 export default SettingsScreen;

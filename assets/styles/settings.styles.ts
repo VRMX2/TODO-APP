@@ -72,7 +72,8 @@ export const createSettingsStyles = (colors: ColorScheme) => {
     statCard: {
       flexDirection: "row",
       alignItems: "center",
-      padding: 20,
+		padding: 20,
+      marginBottom: 16,
       borderRadius: 16,
       borderLeftWidth: 4,
     },
